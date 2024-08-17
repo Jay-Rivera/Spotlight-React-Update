@@ -1,17 +1,10 @@
 import React from "react";
 import Search from "../Components/Search";
+import Home__Img from "../assets/Home__Img.png";
 
 function Home() {
   return (
     <div>
-      <div className="nav__bar">
-        <div className="nav__logo">SpotLight</div>
-        <div className="nav__links">
-          <li className="nav__link">Home</li>
-          <li className="nav__link">Find a Movie</li>
-          <li className="nav__link--contact">Contact</li>
-        </div>
-      </div>
       <div className="home__title--section">
         <div className="home__title">
           Seattle's most awarded <br />
@@ -22,6 +15,9 @@ function Home() {
         </div>
       </div>
       <Search />
+      <div className="body__section">
+        <img className="body__section--img" src={Home__Img} />
+      </div>
     </div>
   );
 }

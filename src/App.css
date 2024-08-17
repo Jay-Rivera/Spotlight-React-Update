@@ -135,7 +135,7 @@ soft blue #669bbc
 
 /* Search component */
 
-.search__section {
+.search__bar--section {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -183,4 +183,19 @@ soft blue #669bbc
   justify-content: center;
   align-items: center;
   margin-top: 24px;
+}
+
+.search__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.search__top--section {
+  padding-top: 20px;
+  padding-bottom: 100px;
+}
+
+.search__results--section {
+  background-color: #003049;
+  color: #fff;
 }

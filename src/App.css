@@ -199,3 +199,13 @@ soft blue #669bbc
   background-color: #003049;
   color: #fff;
 }
+
+.movie__cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.movie__card--image {
+  max-width: 30px;
+}

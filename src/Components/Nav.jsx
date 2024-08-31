@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Spotlight-img.webp";
 
-function Nav() {
+function Nav({ resetSearch }) {
+  const handleHomeClick = () => {
+    resetSearch();
+  };
+
   return (
     <div className="nav__bar">
       <div className="logo__section">
@@ -10,11 +14,12 @@ function Nav() {
         <div className="nav__logo">SpotLight</div>
       </div>
       <div className="nav__links">
-        <Link className="nav__link-component" to={"/"}>
+        <Link
+          className="nav__link-component"
+          to={"/"}
+          onClick={handleHomeClick}
+        >
           <li className="nav__link">Home</li>
-        </Link>
-        <Link className="nav__link-component" to={"/SearchResults"}>
-          <li className="nav__link">Find A Movie</li>
         </Link>
         <Link className="nav__link-component" to={"/"}>
           <li className="nav__link--contact">Contact</li>

@@ -75,6 +75,18 @@ function App() {
                 nextPage={nextPage}
                 previousPage={previousPage}
                 count={count}
+                apiKey={apiKey}
+              />
+            }
+          ></Route>
+          <Route
+            path="/SearchResults"
+            element={
+              <SearchResults
+                nextPage={nextPage}
+                previousPage={previousPage}
+                count={count}
+                apiKey={apiKey}
               />
             }
           ></Route>

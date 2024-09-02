@@ -3,6 +3,9 @@ import Home__Img from "../assets/Home__Img.png";
 import Logo from "../assets/Spotlight-img.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import SearchResults from "./SearchResults";
 
 function Home({
   setSearchValue,
@@ -12,8 +15,11 @@ function Home({
   searchValue,
   movies,
   count,
+  apiKey,
 }) {
   const [homeValue, setHomeValue] = useState("");
+  const [movie, setMovie] = useState("");
+  const [movieID, setMovieID] = useState("");
 
   const enterKey = (event) => {
     if (event.key === "Enter") {
@@ -32,6 +38,14 @@ function Home({
 
   function updateHomeValue(event) {
     setHomeValue(event.target.value);
+  }
+
+  async function fetchMovie(movieID) {
+    const { data } = await axios.get(
+      `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`
+    );
+    setMovie(data);
+    setMovieID(movieID);
   }
 
   return (
@@ -76,16 +90,27 @@ function Home({
           </div>
           <div className="movie__cards">
             {movies.map((movie) => (
-              <div className="movie__card">
-                <img
-                  className="movie__card--image"
-                  src={movie.Poster !== "N/A" ? movie.Poster : Logo}
-                  key={movie.imdbID}
-                  alt=""
-                />
-                <h1 className="movie__card--title">{movie.Title}</h1>
-                <p className="movie__card--description">{movie.Year}</p>
-              </div>
+              <Link
+                to={"/SearchResults"}
+                key={movie.imdbID}
+                state={{ movieID: movie.imdbID }}
+              >
+                <div
+                  className="movie__card"
+                  onClick={() => fetchMovie(movie.imdbID)}
+                >
+                  <img
+                    className="movie__card--image"
+                    src={movie.Poster !== "N/A" ? movie.Poster : Logo}
+                    key={movie.imdbID}
+                    alt=""
+                  />
+                  <div className="card__details">
+                    <h1 className="movie__card--title">{movie.Title}</h1>
+                    <p className="movie__card--description">{movie.Year}</p>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
           {count >= 2 ? (

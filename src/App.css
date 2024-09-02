@@ -8,6 +8,8 @@
   font-family: 'Oswald', 'Roboto', sans-serif;
 }
 
+
+
 .lightblue {
   color: #669bbc;
 }
@@ -183,7 +185,6 @@ soft blue #669bbc
   text-shadow: 0 0 10px black;
 }
 
-/* Search Results Page */
 
 .search__title--section {
   display: flex;
@@ -209,19 +210,18 @@ soft blue #669bbc
   text-transform: capitalize;
 }
 
+
+
 .movie__cards {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 500px);
+  gap: 40px;
+  justify-content: center;
 }
 
 .movie__card {
-  width: calc(100%/4);
   border: 4px solid #669bbc;
   border-radius: 8px;
-  margin: 20px;
   background-color: #fff;
   color: #003049;
   box-shadow: -10px -10px 40px black;
@@ -235,6 +235,7 @@ soft blue #669bbc
 
 .movie__card--image {
   width: 100%;
+
 }
 
 .movie__card--title {
@@ -244,6 +245,11 @@ soft blue #669bbc
   margin-bottom: 12px;
   margin: 16px;
   text-align: center;
+  text-decoration: none;
+}
+
+.card__details {
+  text-decoration: none;
 }
 
 .movie__card--description {
@@ -274,6 +280,7 @@ soft blue #669bbc
   border-radius: 16px;
   border-color: #669bbc;
   cursor: pointer;
+  text-transform: capitalize;
   transition: all 300ms ease;
 }
 
@@ -283,4 +290,70 @@ soft blue #669bbc
   color: #fff;
   font-weight: 800;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Search Results Page */
+
+.search__results {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color: #003049;
+  overflow: hidden;
+}
+
+.search__result {
+  display: flex;
+  flex-direction: row;
+}
+
+.search__page--img {
+  margin: 20px;
+  width: 50%;
+  border: 8px solid #669bbc;
+  border-radius: 8px;
+  background: linear-gradient(0.25turn, #9ea39d, #9fa7a0, #9ea39d);
+}
+
+.search__page--img-poster {
+  width: 100%;
+  border-radius: 2px;
+}
+
+.search__page--details {
+  margin-top: 40px;
+}
+
+.search__page--title {
+  text-align: center;
+  /* offset-x | offset-y | blur-radius | color */
+  text-shadow: 1px 1px 10px black;
+  color: #fff;
+  font-size: 24px;
+  border-bottom: 4px solid white;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.movie__details {
+  color: #fff;
+  text-shadow: 1px 1px 2px black;
+  font-size: 26px;
+  margin-left: 10px;
+  padding: 10px;
+
+}
+
+.movie__details--text {
+  margin-bottom: 8px;
+}
+
+.result__btn {
+  padding-top: 100px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-right: 40px;
 }

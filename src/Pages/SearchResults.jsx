@@ -8,17 +8,23 @@ function SearchResults({ apiKey }) {
   const location = useLocation();
   const { movieID } = location.state || {};
   const [movie, setMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   const previousPage = () => {
     navigate(-1);
   };
 
   async function getMovieData() {
-    const { data } = await axios.get(
-      `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`
-    );
-
-    setMovie(data);
+    try {
+      const { data } = await axios.get(
+        `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`
+      );
+      setMovie(data);
+    } catch (error) {
+      console.error("Error fetching movie data:", error);
+    } finally {
+      setIsLoading(false); // Stop loading after data fetch
+    }
   }
 
   useEffect(() => {
@@ -27,16 +33,20 @@ function SearchResults({ apiKey }) {
 
   return (
     <div className="search__results">
-      {movie ? (
+      {isLoading ? (
+        <div className="no__data--container">
+          <h2>Loading...</h2>
+        </div>
+      ) : movie ? (
         <div className="search__result">
-          <div className="search__page--img">
+          <div className="search__page--img search__half">
             <img
               className="search__page--img-poster"
               src={movie.Poster !== "N/A" ? movie.Poster : Logo}
               alt={movie.Title}
             />
           </div>
-          <div className="search__page--details">
+          <div className="search__page--details search__half">
             <div className="search__page--title">
               <h1 className="movie__title">{movie.Title}</h1>
             </div>
@@ -77,7 +87,9 @@ function SearchResults({ apiKey }) {
           </div>
         </div>
       ) : (
-        <p>No movie data available</p>
+        <div className="no__data--container">
+          <h2 className="no__data--message">No movie data available</h2>
+        </div>
       )}
     </div>
   );

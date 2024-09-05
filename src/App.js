@@ -5,6 +5,7 @@ import SearchResults from "./Pages/SearchResults";
 import Nav from "./Components/Nav";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Contact from "./Pages/Contact";
 
 function App() {
   const apiKey = `67129a98`;
@@ -90,6 +91,7 @@ function App() {
               />
             }
           ></Route>
+          <Route path="/contact" element={<Contact />}></Route>
         </Routes>
       </div>
     </Router>

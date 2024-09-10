@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 function Contact() {
   const form = useRef();
   const [success, setSuccess] = useState(false);
-  const [filledForm, setFilledForm] = useState(true);
+  const [filledForm, setFilledForm] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -42,13 +42,14 @@ function Contact() {
             Jose Rivera - Frontend Software Engineer
           </h4>
           <p className="contact__para">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            pariatur fugiat doloribus ullam impedit fuga architecto accusamus
-            ipsam in distinctio ab, asperiores, voluptatum, blanditiis ipsum!
+            This project is my final for the React section of the bootcamp I am
+            currently in. I was able to create this website using the OMDB API.
+            I also used Email.Js to create this contact section. Feel free to
+            reach out and provide any feedback!
             <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-            consequatur modi laborum quisquam maxime rem nesciunt voluptates
-            corporis unde aspernatur.
+            <br />
+            The languages that I used for this project are HTML, CSS, Javascript
+            and React!
           </p>
           <div className="contact__languages">
             <div className="contact__language">

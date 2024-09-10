@@ -1,11 +1,11 @@
-import "./App.css";
+import React, { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import SearchResults from "./Pages/SearchResults";
 import Nav from "./Components/Nav";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Contact from "./Pages/Contact";
+import "./App.css";
 
 function App() {
   const apiKey = `67129a98`;
@@ -13,6 +13,7 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(1);
+
   const resetSearch = () => {
     setMovies([]);
     setSearchValue("");
@@ -20,44 +21,47 @@ function App() {
     setCount(1);
   };
 
-  async function fetchMovies(searchValue) {
-    if (!searchValue) return; // Prevent unnecessary API call
-    setLoading(true);
-    try {
-      const { data } = await axios.get(
-        `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}&page=${count}`
-      );
+  const fetchMovies = useCallback(
+    async (searchValue) => {
+      if (!searchValue) return;
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}&page=${count}`
+        );
 
-      if (data.Response === "True") {
-        setMovies(data.Search);
-      } else {
-        setMovies([]); // Clear movies if no results found
+        if (data.Response === "True") {
+          setMovies(data.Search);
+        } else {
+          setMovies([]);
+        }
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+        setMovies([]);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-      setMovies([]);
-    } finally {
-      setLoading(false);
-    }
-  }
+    },
+    [count, apiKey]
+  );
 
-  function nextPage() {
+  const nextPage = () => {
     const newCount = count + 1;
     setCount(newCount);
-    fetchMovies(searchValue, count);
+    fetchMovies(searchValue);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
-  function previousPage() {
+  const previousPage = () => {
     const newCount = count - 1;
     setCount(newCount);
-    fetchMovies(searchValue, count);
+    fetchMovies(searchValue);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
   useEffect(() => {
-    fetchMovies(searchValue, count);
-  }, [searchValue, count]);
+    fetchMovies(searchValue);
+  }, [searchValue, count, fetchMovies]);
 
   return (
     <Router>
@@ -79,7 +83,7 @@ function App() {
                 apiKey={apiKey}
               />
             }
-          ></Route>
+          />
           <Route
             path="/SearchResults"
             element={
@@ -90,8 +94,8 @@ function App() {
                 apiKey={apiKey}
               />
             }
-          ></Route>
-          <Route path="/contact" element={<Contact />}></Route>
+          />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
